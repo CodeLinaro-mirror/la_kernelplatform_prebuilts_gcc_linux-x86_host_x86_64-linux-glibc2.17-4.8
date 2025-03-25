@@ -101,7 +101,7 @@
 #endif
 
 #ifndef F_GETLK
-# if !defined __USE_FILE_OFFSET64 && __TIMESIZE != 64
+# ifndef __USE_FILE_OFFSET64
 #  define F_GETLK	5	/* Get record locking info.  */
 #  define F_SETLK	6	/* Set record locking info (non-blocking).  */
 #  define F_SETLKW	7	/* Set record locking info (blocking).  */
@@ -175,7 +175,7 @@
 # define __F_GETOWN	9
 #endif
 
-#if defined __USE_UNIX98 || defined __USE_XOPEN2K8
+#if defined __USE_BSD || defined __USE_UNIX98 || defined __USE_XOPEN2K8
 # define F_SETOWN	__F_SETOWN /* Get owner (process receiving SIGIO).  */
 # define F_GETOWN	__F_GETOWN /* Set owner (process receiving SIGIO).  */
 #endif
@@ -232,7 +232,7 @@
 # define F_SHLCK		8	/* or 4 */
 #endif
 
-#ifdef __USE_MISC
+#ifdef __USE_BSD
 /* Operations for BSD flock, also used by the kernel implementation.  */
 # define LOCK_SH	1	/* Shared lock.  */
 # define LOCK_EX	2	/* Exclusive lock.  */
@@ -302,7 +302,7 @@ struct f_owner_ex
 
 /* Define some more compatibility macros to be backward compatible with
    BSD systems which did not managed to hide these kernel macros.  */
-#ifdef	__USE_MISC
+#ifdef	__USE_BSD
 # define FAPPEND	O_APPEND
 # define FFSYNC		O_FSYNC
 # define FASYNC		O_ASYNC
